@@ -1,0 +1,20 @@
+# Django REST API
+Django==4.2.4
+django-filter==23.2
+djangorestframework==3.14.0
+Markdown==3.4.4
+djangorestframework-simplejwt==5.2.2
+pillow==10.0.0
+# Database
+psycopg2-binary==2.9.5
+
+# Deploy
+
+requests==2.31.0
+
+django-storages==1.13.2
+boto3==1.28.17
+
+zappa==0.57.0
+
+
