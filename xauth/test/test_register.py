@@ -18,7 +18,7 @@ class TestRegisterCase(TestCase):
         'password': 'pepito123',
         'username': 'demo2',
     }
-    response = self.client.post('/v1/register/', data, format='json')    
+    response = self.client.post('/v1/register/', data, format='json')     
     self.assertEqual(response.status_code, status.HTTP_200_OK)
   
   def test_user_was_registered_by_email(self):    

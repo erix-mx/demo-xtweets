@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "xauth.apps.AuthConfig",
+    "posts.apps.PostsConfig",
     "rest_framework",
     'rest_framework_simplejwt',
 ]
