@@ -46,15 +46,24 @@ class TestPostListCase(TestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK) 
     self.assertEqual(len(response.data['results']), 20)
   
-  def test_success_delete_post(self):
+  def test_success_delete_post_by_owner(self):
     new_post = Post.objects.create(
         author=self.user,
         content=f"Test content for post",
         imageUri=f"image_url.jpg",
         videoUri=f"video_url.mp4",
-    )
-    print(f'/v1/post/{new_post.uuid}/')
-    response = self.client_auth.delete(f'/v1/post/', format='json')    
-    print(response.content)
-    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-   
+    )    
+    response = self.client_auth.delete(f'/v1/post/{new_post.uuid}/')        
+    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)    
+    self.assertEqual(Post.objects.count(), 100)
+    
+  def test_delete_post_by_reader(self):
+    new_post = Post.objects.create(
+        author=self.user_2,
+        content=f"Test content for post",
+        imageUri=f"image_url.jpg",
+        videoUri=f"video_url.mp4",
+    ) 
+    response = self.client_auth.delete(f'/v1/post/{new_post.uuid}/')        
+    self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)    
+    self.assertEqual(Post.objects.count(), 101)

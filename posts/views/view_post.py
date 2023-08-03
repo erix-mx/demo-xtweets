@@ -18,6 +18,15 @@ class PostViewSet(GenericViewSet):
   """
   serializer_class = PostSerializer
   lookup_field = 'uuid'
+  queryset = Post.objects.all()
+  permission_classes = [IsAuthenticated]
+  
+  def get_permissions(self):
+    if self.action == 'destroy':
+      self.permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    else:
+      self.permission_classes = [IsAuthenticated]
+    return super().get_permissions()
   
   @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
   def post(self, request):
@@ -44,8 +53,7 @@ class PostViewSet(GenericViewSet):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-  @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
-  def get(self, request):
+  def list(self, request):
     """   
     """
     queryset = Post.objects.all().order_by('-created')  # Retrieve all posts from the database
@@ -53,9 +61,8 @@ class PostViewSet(GenericViewSet):
     paginated_queryset = paginator.paginate_queryset(queryset, request)  # Paginate the queryset
     serializer = PostSerializer(paginated_queryset, many=True)
     return paginator.get_paginated_response(serializer.data)
-  
-  @action(detail=True, methods=['delete'], permission_classes=[IsAuthenticated, IsAuthorOrReadOnly])
-  def delete(self, request, uuid):
+        
+  def destroy(self, request, uuid=None):
     """
     Delete a post.
 
@@ -70,8 +77,7 @@ class PostViewSet(GenericViewSet):
         Response: A response object containing the deleted post's data and a status code.
                   If there are validation errors, a response with the error details and
                   a 400 status code will be returned.
-    """
-    print('uuid', uuid)
+    """    
     post = self.get_object()
     post.delete()
     return Response({'message': 'Post deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
