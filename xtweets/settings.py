@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-hb_qw1+h%$#)2d-h0w7udyj&o329z2k)!p3*55!cq9l8vsuzom"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG_MODE', True),
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['xtweets-api-dev.webfamous.mx']
 
 
 # Application definition

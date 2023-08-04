@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -56,5 +55,15 @@ jobs:
     - name: Deploy with Zappa
       run: |
         source ~/ENV/bin/activate
-        zappa deploy production
+        zappa update production
         zappa status production
+    - name: Set up PostgreSQL Environment Variables
+      run: |
+        echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
+        echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+        echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
+    - name: Run Migrations   
+      run: |
+        source ~/ENV/bin/activate
+        python manage.py migrate
