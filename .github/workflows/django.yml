@@ -39,3 +39,22 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: Start Zappa
+      run: |
+        python --version
+        python -m venv ~/ENV
+        source ~/ENV/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Set up Environment Variables
+      run: |
+        source ~/ENV/bin/activate
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV                
+        echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
+        echo "AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}" >> $GITHUB_ENV
+    - name: Deploy with Zappa
+      run: |
+        source ~/ENV/bin/activate
+        zappa deploy production
+        zappa status production
