@@ -1,0 +1,9 @@
+{
+  "production": {
+    "django_settings": "xtweets.settings",        
+    "project_name": "xtweets-dev",
+    "runtime": "python3.9",
+    "s3_bucket": "portfile",
+    "aws_region": "us-east-1"
+  } 
+}
