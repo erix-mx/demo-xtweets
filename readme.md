@@ -5,7 +5,7 @@ Pequeña API para la creación de Post, va orientado al curso de [iOS de Platzi]
 ### API URL
 
 ```kotlin
-[**https://xtweets-api-dev.webfamous.mx/**](https://xtweets-api-dev.webfamous.mx/)
+https://xtweets-api-dev.webfamous.mx/
 ```
 
 ### Register [POST]
