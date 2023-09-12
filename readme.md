@@ -5,7 +5,7 @@ Pequeña API para la creación de Post, va orientado al curso de [iOS de Platzi]
 ### API URL
 
 ```kotlin
-https://xtweets-api-dev.webfamous.mx/
+[**https://xtweets-api-dev.webfamous.mx/**](https://xtweets-api-dev.webfamous.mx/)
 ```
 
 ### Register [POST]
@@ -33,6 +33,19 @@ Por cada registro tenemos como respuesta:
         "email": "demo@email.com"
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkxMTg3ODI1LCJpYXQiOjE2OTExODc1MjUsImp0aSI6IjMwMTIzMjVhNGIwYjQ0ODQ4YjA5ODQ4Njg2ZDY2MTY5IiwidXNlcl9pZCI6Mn0.8_dWOyT3qGF0DIoVBs6wIlqnCXbEprRFcy-u2ds5onA"
+}
+```
+
+### Auth [POST]
+
+```kotlin
+https://xtweets-api-dev.webfamous.mx/v1/auth/
+```
+
+```
+{
+    'email': 'demo@user.com',
+    'password': 'pepito123',
 }
 ```
 
